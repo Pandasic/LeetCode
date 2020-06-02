@@ -102,3 +102,13 @@ def stringToTreeNode(input):
             node.right = TreeNode(rightNumber)
             nodeQueue.append(node.right)
     return root
+
+def array2ToString(arr):
+    res = ""
+    for line in arr:
+        lstr = "["
+        for col in line:
+            lstr += str(col) + "," 
+        lstr += "]\n"
+        res += lstr
+    return res
