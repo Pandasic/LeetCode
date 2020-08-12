@@ -5,7 +5,12 @@
 #include <algorithm>
 #include <sstream>
 #include <queue>
-
+#include <map>
+#include <string>
+#include <numeric>
+#include <unordered_map>
+#include <stack>
+#include <list>
 using namespace std;
 
 struct ListNode {
@@ -108,3 +113,5 @@ string treeNodeToString(TreeNode* root) {
     }
     return "[" + output.substr(0, output.length() - 2) + "]";
 }
+
+

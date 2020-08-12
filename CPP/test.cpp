@@ -1,58 +1,75 @@
 #include "include.hpp"
 using namespace std;
 /*
-题目描述
-179. 最大数
-给定一组非负整数，重新排列它们的顺序使之组成一个最大的整数。
+试题 08.11. 硬币
+硬币。给定数量不限的硬币，币值为25分、10分、5分和1分，编写代码计算n分有几种表示法。(结果可能会很大，你需要将结果模上1000000007)
 
-示例 1:
+示例1:
 
-输入: [10,2]
-输出: 210
-示例 2:
+ 输入: n = 5
+ 输出：2
+ 解释: 有两种方式可以凑成总金额:
+5=5
+5=1+1+1+1+1
+示例2:
 
-输入: [3,30,34,5,9]
-输出: 9534330
-说明: 输出结果可能非常大，所以你需要返回一个字符串而不是整数。
+ 输入: n = 10
+ 输出：4
+ 解释: 有四种方式可以凑成总金额:
+10=10
+10=5+5
+10=5+1+1+1+1+1
+10=1+1+1+1+1+1+1+1+1+1
+说明：
 
-通过次数31,068提交次数85,807
-在真实的面试中遇到过这道题？
+注意:
+
+你可以假设：
+
+0 <= n (总金额) <= 1000000
 */
 
-/*
- 思路
- 比较函数学到了 
- 就是先转换成字符串
- 然后比较排序
- 最后拼接；
- 记得最后去0
-*/
 class Solution {
-    static bool cmp(const string &a,const string &b){
-        return a+b>b+a;
-    }
 public:
-    string largestNumber(vector<int>& nums) {
-        if(!nums.size()) return "";
-        vector<string>vec;
-        for(int num : nums){
-            vec.push_back(to_string(num));
+    int numMatchingSubseq(string t, vector<string>& words) {
+        vector<list<queue<char>>> temp(26,list<queue<char>>());
+        for(auto s:words)
+        {
+            queue<char> q;
+            for(auto c:s)
+            {
+                q.push(c);
+            }
+            temp[q.front() - 'a'].push_back(q);
         }
-        sort(vec.begin(),vec.end(),cmp);
-        stringstream ss;
-        string res;
-        for(string str : vec){
-            ss<<str;
+        int res = 0;
+        for(auto c:t)
+        {
+            list<queue<char>> li = temp[c - 'a'];
+            int len = li.size();
+            for(int i = 0; i<len; i++)
+            {
+                queue<char> q = li.front();
+                li.pop_front();
+                q.pop();
+                if(q.size() == 0)
+                    ++res;
+                else
+                    temp[q.front() - 'a'].push_back(q);
+            }
         }
-        ss>>res;
-        return res[0]=='0'?"0":res;
+        return res;
     }
 };
 
+
 int main()
 {
-    Solution s;
-    vector<int> n{};
-    cout<<s.largestNumber(n);
+    struct test
+    {
+        /* data */
+    };
+    test t;
+    cout<<sizeof(t);
     system("pause");
 };

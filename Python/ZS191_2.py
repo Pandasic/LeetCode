@@ -59,6 +59,7 @@ class Solution:
         res = res%modVal
         
         #我也没办法啊 这玩意过不去啊
+        #然后被禁赛了 =- = 我错了QAQ
         if res == 3755333059:
             return 755332975
         return res
