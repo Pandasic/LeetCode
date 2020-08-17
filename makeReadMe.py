@@ -18,6 +18,7 @@ class Topic:
         else:
             self.title = ""
         self.path = os.path.join(dirName,fileName)
+        self.path = self.path.replace(" ","%20")
         self.language = AIM_DIRS[dirName]
 
 def indexCmp(x):

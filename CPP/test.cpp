@@ -29,47 +29,21 @@ using namespace std;
 0 <= n (总金额) <= 1000000
 */
 
-class Solution {
-public:
-    int numMatchingSubseq(string t, vector<string>& words) {
-        vector<list<queue<char>>> temp(26,list<queue<char>>());
-        for(auto s:words)
-        {
-            queue<char> q;
-            for(auto c:s)
-            {
-                q.push(c);
-            }
-            temp[q.front() - 'a'].push_back(q);
-        }
-        int res = 0;
-        for(auto c:t)
-        {
-            list<queue<char>> li = temp[c - 'a'];
-            int len = li.size();
-            for(int i = 0; i<len; i++)
-            {
-                queue<char> q = li.front();
-                li.pop_front();
-                q.pop();
-                if(q.size() == 0)
-                    ++res;
-                else
-                    temp[q.front() - 'a'].push_back(q);
-            }
-        }
-        return res;
-    }
-};
-
 
 int main()
 {
-    struct test
+
+    int n = 0,m = 0;
+    cin>>n>>m;
+    vector<vector<int>> im(n,vector<int>(m,0));
+    for(int i = 0;i <n;i++)
     {
-        /* data */
-    };
-    test t;
-    cout<<sizeof(t);
-    system("pause");
+        for(int j = 0;j <m;j++)
+        {
+            int v;
+            cin >> im[i][j];
+            cout<<im[i][j]<<endl;
+        }
+    }
+
 };
