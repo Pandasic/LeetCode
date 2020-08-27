@@ -37,33 +37,12 @@ set和get方法的时间复杂度为O(1)
 
 #include <unordered_map>
 
-class Solution {
+class LRUCache {
 public:
-    /**
-     * lru design
-     * @param operators int整型vector<vector<>> the ops
-     * @param k int整型 the k
-     * @return int整型vector
-     */
-    vector<int> LRU(vector<vector<int> >& operators, int k) {
-        size = k;
-        vector<int> res;
-        for(auto op:operators)
-        {
-            if(op[0] == 1)
-            {
-                set(op[1],op[2]);
-            }
-            if(op[0] == 2)
-            {
-                res.push_back(get(op[1]));
-            }
-            step++;
-        }
-        return res;
+    LRUCache(int capacity) {
+        size = capacity;
     }
  
-private:
     int count = 0;
     int size = 0;
     int step = 1;
@@ -72,6 +51,8 @@ private:
     
     int get(int key)
     {
+        step++;
+
         if(time[key] != 0)
         {
             time[key] = step;
@@ -83,15 +64,17 @@ private:
         }
     };
     
-    void set(int key,int val)
+    void put(int key,int val)
     {
+        step++;
+        if(time[key] == 0)
+            count += 1;
         data[key] = val;
         time[key] = step;
-        count += 1;
         if(count > size)
         {
             int rmKey = 0;
-            int minTime = 999;
+            int minTime = 99999999;
             for(auto p:time)
             {
                 if(p.second != 0 && p.second < minTime)
@@ -101,14 +84,19 @@ private:
                 }
             }
             time[rmKey] = 0;
+            count--;
         }
     }
 };
 
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
 int main()
 {
     Solution s;
-    vector<vector<int>> data= {{1,1,1},{1,2,2},{1,3,2},{2,1},{1,4,4},{2,2}};
-    s.LRU(data,3);
     system("pause");
 };
